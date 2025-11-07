@@ -5,6 +5,7 @@
 ### Option 1: Deploy from GitHub
 
 1. **Push to GitHub:**
+
    ```bash
    git init
    git add .
@@ -39,12 +40,14 @@ railway up    # Deploy
 ## 🐳 Docker Deployment
 
 ### Build and Run Locally
+
 ```bash
 docker build -f docker/Dockerfile -t p6-mcp-server .
 docker run -p 8000:8000 -e P6_BASE_URL="https://ca1.p6.oraclecloud.com/metrolinx/p6ws/restapi" p6-mcp-server
 ```
 
 ### Docker Compose
+
 ```bash
 cd docker/
 docker-compose up --build
@@ -53,6 +56,7 @@ docker-compose up --build
 ## ☁️ Other Cloud Platforms
 
 ### Heroku
+
 ```bash
 # Install Heroku CLI and login
 heroku create your-app-name
@@ -61,6 +65,7 @@ heroku config:set P6_BASE_URL="https://ca1.p6.oraclecloud.com/metrolinx/p6ws/res
 ```
 
 ### Google Cloud Run
+
 ```bash
 # Build and push to GCR
 gcloud builds submit --tag gcr.io/YOUR-PROJECT/p6-mcp-server
@@ -68,8 +73,11 @@ gcloud run deploy --image gcr.io/YOUR-PROJECT/p6-mcp-server --platform managed
 ```
 
 ### AWS Lambda (with Mangum)
+
 Add to requirements.txt: `mangum`
+
 Create `lambda_handler.py`:
+
 ```python
 from mangum import Mangum
 from src.main import app
@@ -104,6 +112,7 @@ curl https://YOUR_DOMAIN.com/.well-known/mcp.json
 ## 📱 MCP Client Configuration
 
 Once deployed, use this URL in ChatGPT/Claude MCP settings:
-```
+
+```text
 https://YOUR_DOMAIN.com/.well-known/mcp.json
 ```

@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  p6-mcp-server:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      - P6_BASE_URL=https://ca1.p6.oraclecloud.com/metrolinx/p6ws/restapi
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
